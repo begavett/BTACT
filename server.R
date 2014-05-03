@@ -58,7 +58,8 @@ shinyServer(function(input, output, session) {
                                               44:46 = 8;
                                               47:52 = 9;
                                               53:100 = 10"))    
-    all.data <- data.frame(rbind(new.data, midus.data))
+    all.data <- midus.data
+    midus.data[1,] <- new.data
     f.scores <- data.frame(predict(model.data, newdata = all.data))
     names(f.scores) <- c("Unadjusted","NS","RG")
     f.scores <- f.scores[1,]
