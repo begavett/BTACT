@@ -2,6 +2,7 @@ library(shiny)
 if("shinyIncubator" %in% rownames(installed.packages()) == FALSE) {install.packages("shinyIncubator")}
 library(shinyIncubator)
 if("lavaan" %in% rownames(installed.packages()) == FALSE) {install.packages("lavaan")}
+library(lavaan)
 if("car" %in% rownames(installed.packages()) == FALSE) {install.packages("car")}
 library(car)
 
