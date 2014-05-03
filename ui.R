@@ -59,7 +59,9 @@ shinyUI(fluidPage(
                           "Precision Production, Crafts, and Repair" = "Repair"
                         ))
     ),
-    column(6,
+    column(1,
+           submitButton("Calculate")),
+    column(5,
            tabsetPanel(
              tabPanel("Unadjusted",
                       h4("BTACT Factor z-scores (M = 0, SD = 1)"),
