@@ -1,5 +1,9 @@
 library(shiny)
+if("shinyIncubator" %in% rownames(installed.packages()) == FALSE) {install.packages("shinyIncubator")}
 library(shinyIncubator)
+if("lavaan" %in% rownames(installed.packages()) == FALSE) {install.packages("lavaan")}
+if("car" %in% rownames(installed.packages()) == FALSE) {install.packages("car")}
+library(car)
 
 shinyUI(fluidPage(
   title = "BTACT Global Factor Score and Norms Calculator",

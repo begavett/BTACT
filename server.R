@@ -1,7 +1,12 @@
 library(shiny)
-library(lavaan)
 library(car)
+if("shinyIncubator" %in% rownames(installed.packages()) == FALSE) {install.packages("shinyIncubator")}
 library(shinyIncubator)
+if("lavaan" %in% rownames(installed.packages()) == FALSE) {install.packages("lavaan")}
+library(lavaan)
+if("car" %in% rownames(installed.packages()) == FALSE) {install.packages("car")}
+library(car)
+
 
 # Define server logic required to generate factor scores
 shinyServer(function(input, output, session) {
@@ -59,23 +64,12 @@ shinyServer(function(input, output, session) {
                                               47:52 = 8;
                                               53:100 = 9"))    
     all.data <- midus.data
-    print(midus.data[1,])
-    midus.data[1,] <- new.data
-    print(midus.data[1,])
-    withProgress(session,
-                 expr = {
-                   setProgress(message = "Loading...", detail=NULL)
-                   for (i in 1:100) {
-                     setProgress(value = i)
-                     Sys.sleep(.01)
-                   }
-                 },
-                 min = 0,
-                 max = 100)
-    withProgress(session, min = 1, max = 100, {
+    all.data[1,] <- new.data
+    withProgress(session, min = 1, max = 500, {
       setProgress(message = "Loading...")
-      for(i in 1:100) {
+      for(i in 1:500) {
         setProgress(value = i)
+        Sys.sleep(.25)
       }
       f.scores <- data.frame(predict(model.data, newdata = all.data))
       names(f.scores) <- c("Unadjusted","NS","RG")
