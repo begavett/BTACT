@@ -2,10 +2,10 @@ library(shiny)
 library(shinyIncubator)
 
 shinyUI(fluidPage(
-  title = "BTACT Factor Score and Norms Calculator",
+  title = "BTACT Global Factor Score and Norms Calculator",
   fluidRow(
     column(8,
-           h2("BTACT Factor Score and Norms Calculator")),
+           h2("BTACT Global Factor Score and Norms Calculator")),
     column(4,
            img(src = "http://www.uccs.edu/Images/brand/uccs-logo.png", width=400, height=58))),
   fluidRow(HTML("Based on Gavett, B. E., Crane, P. K., & Dams-O'Connor, K. (2013). Bi-factor analyses of the Brief Test of Adult Cognition by Telephone. <i>NeuroRehabilitation</i>, <i>32</i>, 253-365. <a href = 'http://www.uccs.edu/Documents/bgavett/BTACT_2013.pdf'><img src = 'http://www.adobe.com/images/pdficon_small.png'></a>")),
@@ -66,31 +66,31 @@ shinyUI(fluidPage(
            progressInit(),
            tabsetPanel(
              tabPanel("Unadjusted",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresN")),
              tabPanel("Age",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresA")),
              tabPanel("A + Edu",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresAE")),
              tabPanel("A + Gen",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresAG")),
              tabPanel("A + Occu",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresAO")),
              tabPanel("A + E + G",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresAEG")),
              tabPanel("A + E + O",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresAEO")),
              tabPanel("A + G + O",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresAGO")),
              tabPanel("A + E + G + O",
-                      h4("BTACT Factor z-scores (M = 0, SD = 1)"),
+                      h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
                       tableOutput("FScoresAEGO"))
            )
     )
