@@ -8,9 +8,9 @@ shinyServer(function(input, output, session) {
   FScores <- reactive({
     model.data <- readRDS("BTACT_bifactor.rds")
     midus.data <- readRDS("MIDUS.rds")
-    new.data <- data.frame(m2id = 1, b_digit = input$b_digit, ns_1 = input$ns_1+1, 
-                           ns_2 = input$ns_2+1, ns_3 = input$ns_3+1, ns_4 = input$ns_4+1, 
-                           ns_5 = input$ns_5+1, wli_early = input$wli_early, 
+    new.data <- data.frame(m2id = 1, b_digit = input$b_digit, ns_1 = input$ns_1, 
+                           ns_2 = input$ns_2, ns_3 = input$ns_3, ns_4 = input$ns_4, 
+                           ns_5 = input$ns_5, wli_early = input$wli_early, 
                            wli_mid = input$wli_mid, wli_late = input$wli_late, 
                            wld_early = input$wld_early, wld_mid = input$wld_mid, 
                            wld_late = input$wld_late, rg_norm_switch = input$rg_norm_switch, 
@@ -37,27 +37,27 @@ shinyServer(function(input, output, session) {
                                                    14 = 7;
                                                    15 = 8"),
                            pcat = recode(input$pcat, 
-                                         "0:11 = 1;
-                                         12:14 = 2;
-                                         15:16 = 3;
-                                         17 = 4;
-                                         18:19 = 5;
-                                         20 = 6;
-                                         21:22 = 7;
-                                         23:24 = 8;
-                                         25:27 = 9;
-                                         28:100 = 10"), 
+                                         "0:11 = 0;
+                                         12:14 = 1;
+                                         15:16 = 2;
+                                         17 = 3;
+                                         18:19 = 4;
+                                         20 = 5;
+                                         21:22 = 6;
+                                         23:24 = 7;
+                                         25:27 = 8;
+                                         28:100 = 9"), 
                            pbc_score = recode(input$pbc_score, 
-                                              "0:24 = 1;
-                                              25:28 = 2;
-                                              29:31 = 3;
-                                              32:34 = 4;
-                                              35:37 = 5;
-                                              38:40 = 6;
-                                              41:43 = 7;
-                                              44:46 = 8;
-                                              47:52 = 9;
-                                              53:100 = 10"))    
+                                              "0:24 = 0;
+                                              25:28 = 1;
+                                              29:31 = 2;
+                                              32:34 = 3;
+                                              35:37 = 4;
+                                              38:40 = 5;
+                                              41:43 = 6;
+                                              44:46 = 7;
+                                              47:52 = 8;
+                                              53:100 = 9"))    
     all.data <- midus.data
     midus.data[1,] <- new.data
     withProgress(session,
@@ -65,6 +65,7 @@ shinyServer(function(input, output, session) {
                    setProgress(message = "Loading...", detail=NULL)
                    for (i in 1:100) {
                      setProgress(value = i)
+                     Sys.sleep(.01)
                    }
                  },
                  min = 0,
