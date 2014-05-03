@@ -69,61 +69,67 @@ shinyServer(function(input, output, session) {
                  },
                  min = 0,
                  max = 100)
-    f.scores <- data.frame(predict(model.data, newdata = all.data))
-    names(f.scores) <- c("Unadjusted","NS","RG")
-    f.scores <- f.scores[1,]
-    f.scores <- f.scores[-2]
-    f.scores <- f.scores[-2]
-    norm.data <- readRDS("BTACT_norms.rds")
-    demog.dataA <- data.frame(bifactor.z = f.scores$Unadjusted, 
-                              B1PAGE_M2 = input$age)
-    demog.dataAE <- data.frame(bifactor.z = f.scores$Unadjusted, 
-                               B1PAGE_M2 = input$age, 
-                               Edu = input$edu)
-    demog.dataAG <- data.frame(bifactor.z = f.scores$Unadjusted, 
-                               B1PAGE_M2 = input$age, 
-                               B1PRSEX = input$gender)
-    demog.dataAO <- data.frame(bifactor.z = f.scores$Unadjusted, 
-                               B1PAGE_M2 = input$age, 
-                               CurrentPastOcc = input$occ)
-    demog.dataAEG <- data.frame(bifactor.z = f.scores$Unadjusted, 
-                                B1PAGE_M2 = input$age, 
-                                Edu = input$edu, 
-                                B1PRSEX = input$gender)
-    demog.dataAEO <- data.frame(bifactor.z = f.scores$Unadjusted, 
-                                B1PAGE_M2 = input$age, 
-                                Edu = input$edu,
-                                CurrentPastOcc = input$occ)
-    demog.dataAGO <- data.frame(bifactor.z = f.scores$Unadjusted, 
-                                B1PAGE_M2 = input$age, 
-                                B1PRSEX = input$gender,
-                                CurrentPastOcc = input$occ)
-    demog.dataAEGO <- data.frame(bifactor.z = f.scores$Unadjusted, 
+    withProgress(session, min = 1, max = 100, {
+      setProgress(message = "Loading...")
+      for(i in 1:100) {
+        setProgress(value = i)
+      }
+      f.scores <- data.frame(predict(model.data, newdata = all.data))
+      names(f.scores) <- c("Unadjusted","NS","RG")
+      f.scores <- f.scores[1,]
+      f.scores <- f.scores[-2]
+      f.scores <- f.scores[-2]
+      norm.data <- readRDS("BTACT_norms.rds")
+      demog.dataA <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                B1PAGE_M2 = input$age)
+      demog.dataAE <- data.frame(bifactor.z = f.scores$Unadjusted, 
                                  B1PAGE_M2 = input$age, 
-                                 Edu = input$edu, 
-                                 B1PRSEX = input$gender,
+                                 Edu = input$edu)
+      demog.dataAG <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                 B1PAGE_M2 = input$age, 
+                                 B1PRSEX = input$gender)
+      demog.dataAO <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                 B1PAGE_M2 = input$age, 
                                  CurrentPastOcc = input$occ)
-    f.scores$Normed <- NA_integer_
-    normed.scores <- data.frame(none=NA_integer_)
-    normed.scores$A <- (demog.dataA$bifactor.z - predict(norm.data$A, newdata = demog.dataA))/summary(norm.data$A)$sigma
-    normed.scores$AE <- (demog.dataAE$bifactor.z - predict(norm.data$AE, newdata = demog.dataAE))/summary(norm.data$AE)$sigma
-    normed.scores$AG <- (demog.dataAG$bifactor.z - predict(norm.data$AG, newdata = demog.dataAG))/summary(norm.data$AG)$sigma
-    normed.scores$AO <- (demog.dataAO$bifactor.z - predict(norm.data$AO, newdata = demog.dataAO))/summary(norm.data$AO)$sigma
-    normed.scores$AEG <- (demog.dataAEG$bifactor.z - predict(norm.data$AEG, newdata = demog.dataAEG))/summary(norm.data$AEG)$sigma
-    normed.scores$AEO <- (demog.dataAEO$bifactor.z - predict(norm.data$AEO, newdata = demog.dataAEO))/summary(norm.data$AEO)$sigma
-    normed.scores$AGO <- (demog.dataAGO$bifactor.z - predict(norm.data$AGO, newdata = demog.dataAGO))/summary(norm.data$AGO)$sigma
-    normed.scores$AEGO <- (demog.dataAEGO$bifactor.z - predict(norm.data$AEGO, newdata = demog.dataAEGO))/summary(norm.data$AEGO)$sigma
-    f.scores$none <- demog.dataA$bifactor.z
-    f.scores$A <- normed.scores$A
-    f.scores$AE <- normed.scores$AE
-    f.scores$AG <- normed.scores$AG
-    f.scores$AO <- normed.scores$AO
-    f.scores$AEG <- normed.scores$AEG
-    f.scores$AEO <- normed.scores$AEO
-    f.scores$AGO <- normed.scores$AGO
-    f.scores$AEGO <- normed.scores$AEGO
-    rownames(f.scores) <- c("z-score")
-    return(data.frame(round(f.scores,3)))
+      demog.dataAEG <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                  B1PAGE_M2 = input$age, 
+                                  Edu = input$edu, 
+                                  B1PRSEX = input$gender)
+      demog.dataAEO <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                  B1PAGE_M2 = input$age, 
+                                  Edu = input$edu,
+                                  CurrentPastOcc = input$occ)
+      demog.dataAGO <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                  B1PAGE_M2 = input$age, 
+                                  B1PRSEX = input$gender,
+                                  CurrentPastOcc = input$occ)
+      demog.dataAEGO <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                   B1PAGE_M2 = input$age, 
+                                   Edu = input$edu, 
+                                   B1PRSEX = input$gender,
+                                   CurrentPastOcc = input$occ)
+      f.scores$Normed <- NA_integer_
+      normed.scores <- data.frame(none=NA_integer_)
+      normed.scores$A <- (demog.dataA$bifactor.z - predict(norm.data$A, newdata = demog.dataA))/summary(norm.data$A)$sigma
+      normed.scores$AE <- (demog.dataAE$bifactor.z - predict(norm.data$AE, newdata = demog.dataAE))/summary(norm.data$AE)$sigma
+      normed.scores$AG <- (demog.dataAG$bifactor.z - predict(norm.data$AG, newdata = demog.dataAG))/summary(norm.data$AG)$sigma
+      normed.scores$AO <- (demog.dataAO$bifactor.z - predict(norm.data$AO, newdata = demog.dataAO))/summary(norm.data$AO)$sigma
+      normed.scores$AEG <- (demog.dataAEG$bifactor.z - predict(norm.data$AEG, newdata = demog.dataAEG))/summary(norm.data$AEG)$sigma
+      normed.scores$AEO <- (demog.dataAEO$bifactor.z - predict(norm.data$AEO, newdata = demog.dataAEO))/summary(norm.data$AEO)$sigma
+      normed.scores$AGO <- (demog.dataAGO$bifactor.z - predict(norm.data$AGO, newdata = demog.dataAGO))/summary(norm.data$AGO)$sigma
+      normed.scores$AEGO <- (demog.dataAEGO$bifactor.z - predict(norm.data$AEGO, newdata = demog.dataAEGO))/summary(norm.data$AEGO)$sigma
+      f.scores$none <- demog.dataA$bifactor.z
+      f.scores$A <- normed.scores$A
+      f.scores$AE <- normed.scores$AE
+      f.scores$AG <- normed.scores$AG
+      f.scores$AO <- normed.scores$AO
+      f.scores$AEG <- normed.scores$AEG
+      f.scores$AEO <- normed.scores$AEO
+      f.scores$AGO <- normed.scores$AGO
+      f.scores$AEGO <- normed.scores$AEGO
+      rownames(f.scores) <- c("z-score")
+      return(data.frame(round(f.scores,3)))
+    })
   })
   output$FScoresN <- renderTable({FScores()[1]})
   output$FScoresA <- renderTable({FScores()[4]})
