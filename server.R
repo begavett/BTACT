@@ -1,12 +1,14 @@
 library(shiny)
 library(lavaan)
 library(car)
+library(shinyIncubator)
 
 # Define server logic required to generate factor scores
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   FScores <- reactive({
-    model.data <- readRDS("BTACT_bifactor.rds")
-    new.data <- data.frame(b_digit = input$b_digit, ns_1 = input$ns_1+1, 
+    model.data <- readRDS("BTACT_bifactor.rds")$fit
+    midus.data <- readRDS("MIDUS.rds")
+    new.data <- data.frame(m2id = 1, b_digit = input$b_digit, ns_1 = input$ns_1+1, 
                            ns_2 = input$ns_2+1, ns_3 = input$ns_3+1, ns_4 = input$ns_4+1, 
                            ns_5 = input$ns_5+1, wli_early = input$wli_early, 
                            wli_mid = input$wli_mid, wli_late = input$wli_late, 
@@ -56,25 +58,8 @@ shinyServer(function(input, output) {
                                               44:46 = 8;
                                               47:52 = 9;
                                               53:100 = 10"))    
-    fake.data <- data.frame(b_digit = sample(0:7,19,replace=T))
-    fake.data$ns_1 <- sample(1:2,19,replace=T)
-    fake.data$ns_2 <- sample(1:2,19,replace=T)
-    fake.data$ns_3 <- sample(1:2,19,replace=T)
-    fake.data$ns_4 <- sample(1:2,19,replace=T)
-    fake.data$ns_5 <- sample(1:2,19,replace=T)
-    fake.data$wli_early <- sample(0:5,19,replace=T)
-    fake.data$wli_mid <- sample(0:5,19,replace=T)
-    fake.data$wli_late <- sample(0:5,19,replace=T)
-    fake.data$wld_early <- sample(0:5,19,replace=T)
-    fake.data$wld_mid <- sample(0:5,19,replace=T)
-    fake.data$wld_late <- sample(0:5,19,replace=T)
-    fake.data$rg_norm_switch <- sample(0:3,19,replace=T)
-    fake.data$rg_rev_switch <- sample(0:3,19,replace=T)
-    fake.data$prg_rev_other <- sample(0:9,19,replace=T)
-    fake.data$prg_norm_other <- sample(0:8,19,replace=T)
-    fake.data$pcat <- sample(1:10,19,replace=T)
-    fake.data$pbc_score <- sample(1:10,19,replace=T)
-    f.scores <- data.frame(predict(model.data, newdata = rbind(new.data,fake.data)))
+    all.data <- rbind(new.data, midus.data)
+      f.scores <- data.frame(predict(model.data, newdata = all.data))
     names(f.scores) <- c("Unadjusted","NS","RG")
     f.scores <- f.scores[1,]
     f.scores <- f.scores[-2]
