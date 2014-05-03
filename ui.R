@@ -1,4 +1,5 @@
 library(shiny)
+library(shinyIncubator)
 
 shinyUI(fluidPage(
   title = "BTACT Factor Score and Norms Calculator",
