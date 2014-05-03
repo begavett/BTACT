@@ -59,7 +59,9 @@ shinyServer(function(input, output, session) {
                                               47:52 = 8;
                                               53:100 = 9"))    
     all.data <- midus.data
+    print(midus.data[1,])
     midus.data[1,] <- new.data
+    print(midus.data[1,])
     withProgress(session,
                  expr = {
                    setProgress(message = "Loading...", detail=NULL)
