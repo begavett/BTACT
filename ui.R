@@ -1,6 +1,7 @@
 library(shiny)
 
 shinyUI(fluidPage(
+  progressInit(),
   title = "BTACT Factor Score and Norms Calculator",
   fluidRow(
     column(8,
