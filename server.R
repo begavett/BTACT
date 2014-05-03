@@ -6,7 +6,7 @@ library(shinyIncubator)
 # Define server logic required to generate factor scores
 shinyServer(function(input, output, session) {
   FScores <- reactive({
-    model.data <- readRDS("BTACT_bifactor.rds")$fit
+    model.data <- readRDS("BTACT_bifactor.rds")
     midus.data <- readRDS("MIDUS.rds")
     new.data <- data.frame(m2id = 1, b_digit = input$b_digit, ns_1 = input$ns_1+1, 
                            ns_2 = input$ns_2+1, ns_3 = input$ns_3+1, ns_4 = input$ns_4+1, 
