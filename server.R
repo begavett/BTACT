@@ -62,11 +62,14 @@ shinyServer(function(input, output, session) {
     midus.data[1,] <- new.data
     withProgress(session,
                  expr = {
-                   f.scores <- data.frame(predict(model.data, newdata = all.data))
-                   setProgress(message = "Loading...")
+                   setProgress(message = "Loading...", detail=NULL)
+                   for (i in 1:100) {
+                     setProgress(value = i)
+                   }
                  },
                  min = 0,
                  max = 100)
+    f.scores <- data.frame(predict(model.data, newdata = all.data))
     names(f.scores) <- c("Unadjusted","NS","RG")
     f.scores <- f.scores[1,]
     f.scores <- f.scores[-2]
