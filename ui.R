@@ -1,7 +1,6 @@
 library(shiny)
 
 shinyUI(fluidPage(
-  progressInit(),
   title = "BTACT Factor Score and Norms Calculator",
   fluidRow(
     column(8,
@@ -63,6 +62,7 @@ shinyUI(fluidPage(
     column(1,
            br(),br(),br(),br(),br(),br(),br(),submitButton("Calculate")),
     column(5,
+           progressInit(),
            tabsetPanel(
              tabPanel("Unadjusted",
                       h4("BTACT Factor z-scores (M = 0, SD = 1)"),
