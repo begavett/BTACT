@@ -1,5 +1,5 @@
 library(shiny)
-if("shinyIncubator" %in% rownames(installed.packages()) == FALSE) {install.packages("shinyIncubator")}
+if("shinyIncubator" %in% rownames(installed.packages()) == FALSE) {install.packages("devtools"); library(devtools); devtools::install_github("shiny-incubator", "rstudio")}
 library(shinyIncubator)
 if("lavaan" %in% rownames(installed.packages()) == FALSE) {install.packages("lavaan")}
 library(lavaan)
