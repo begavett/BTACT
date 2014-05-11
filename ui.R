@@ -17,6 +17,7 @@ shinyUI(fluidPage(
   tags$hr(),
   fluidRow(
     column(3,
+           h3("BTACT Raw Scores"),
            numericInput("b_digit", "Backward Digit Span (0-7):",0,min=0,max=7),
            numericInput("ns_1", "Number Series Trial 1 (0-1):",0,min=0,max=1),
            numericInput("ns_2", "Number Series Trial 2 (0-1):",0,min=0,max=1),
@@ -36,6 +37,7 @@ shinyUI(fluidPage(
            numericInput("pcat", "Category Fluency (0-50):",0,min=0,max=50),
            numericInput("pbc_score", "Backwards Counting (0-100):",0,min=0,max=100)),
     column(3,
+           h3("Demographic Variables"),
            numericInput("age", "Age (28-84):",28,min=28,max=84),
            radioButtons("edu", "Education:",
                         c("0-8 Years" = "Junior",
