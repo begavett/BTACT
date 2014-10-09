@@ -87,7 +87,7 @@ shinyServer(function(input, output, session) {
     all.data <- midus.data
     all.data[1,] <- new.data
     withProgress(session, min = 1, max = 500, {
-      setProgress(message = "Loading...")
+      setProgress(message = "Loading (this may take several minutes)...")
       for(i in 1:500) {
         setProgress(value = i)
         Sys.sleep(.25)
