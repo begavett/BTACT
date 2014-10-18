@@ -12,16 +12,6 @@ Users can choose to apply any of the following demographic corrections to derive
 * Age + Gender + Occupation
 * Age + Education + Gender + Occupation
 
-To run this app, the user must download and install the free R software package from http://www.r-project.org as well as the free RStudio software (http://www.rstudio.com/products/rstudio/download/). Once RStudio is installed, the shiny package must be installed. In RStudio, simply type the code below to install shiny.
+To run this app, click on the link below.
 
-```R
-install.packages("shiny", dependencies = TRUE)
-```
-
-The easiest way to run the BTACT Shiny app is by typing the code below into RStudio.
-
-```R
-library(shiny)
-
-runGitHub("BTACT", "begavett")
-```
+https://begavett.shinyapps.io/BTACT
