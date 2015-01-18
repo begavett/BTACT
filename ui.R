@@ -90,7 +90,7 @@ shinyUI(fluidPage(
                         ))
     ),
     column(1,
-           br(),br(),br(),br(),br(),br(),br(),submitButton("Calculate")),
+           br(),br(),br(),br(),br(),br(),br(),actionButton("calc", "Calculate")),
     column(5,
            progressInit(),
            tabsetPanel(

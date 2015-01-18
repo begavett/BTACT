@@ -32,6 +32,9 @@ library(car)
 # Define server logic required to generate factor scores
 shinyServer(function(input, output, session) {
   FScores <- reactive({
+    if (input$calc == 0)
+      return()
+    isolate({
     model.data <- readRDS("BTACT_bifactor.rds")
     midus.data <- readRDS("MIDUS.rds")
     new.data <- data.frame(m2id = 1, b_digit = input$b_digit, ns_1 = input$ns_1, 
@@ -163,20 +166,72 @@ shinyServer(function(input, output, session) {
       f.scores$AGO <- normed.scores$AGO
       f.scores$AEGO <- normed.scores$AEGO
       rownames(f.scores) <- c("z-score")
-      return(data.frame(round(f.scores,3)))
+      return(data.frame(round(f.scores,3)))})
     })
   })
-  output$FScoresN <- renderTable({FScores()[1]})
-  output$FScoresA <- renderTable({FScores()[4]})
-  output$FScoresE <- renderTable({FScores()[5]})
-  output$FScoresG <- renderTable({FScores()[6]})
-  output$FScoresO <- renderTable({FScores()[7]})
-  output$FScoresAE <- renderTable({FScores()[8]})
-  output$FScoresAG <- renderTable({FScores()[9]})
-  output$FScoresAO <- renderTable({FScores()[10]})
-  output$FScoresEO <- renderTable({FScores()[11]})
-  output$FScoresAEG <- renderTable({FScores()[12]})
-  output$FScoresAEO <- renderTable({FScores()[13]})
-  output$FScoresAGO <- renderTable({FScores()[14]})
-  output$FScoresAEGO <- renderTable({FScores()[15]})
+  output$FScoresN <- renderTable({
+    if (input$calc == 0)
+    return()
+    isolate({FScores()[1]})
+    })
+  output$FScoresA <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[4]})
+    })
+  output$FScoresE <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[5]})
+    })
+  output$FScoresG <- renderTable({
+    if (input$calc == 0)
+    return()
+    isolate({FScores()[6]})
+    })
+  output$FScoresO <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[7]})
+    })
+  output$FScoresAE <- renderTable({
+    if (input$calc == 0)
+    return()
+    isolate({FScores()[8]})
+    })
+  output$FScoresAG <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[9]})
+    })
+  output$FScoresAO <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[10]})
+    })
+  output$FScoresEO <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[11]})
+    })
+  output$FScoresAEG <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[12]})
+    })
+  output$FScoresAEO <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[13]})
+    })
+  output$FScoresAGO <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[14]})
+    })
+  output$FScoresAEGO <- renderTable({
+    if (input$calc == 0)
+      return()
+    isolate({FScores()[15]})
+    })
 })
