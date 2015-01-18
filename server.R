@@ -100,6 +100,12 @@ shinyServer(function(input, output, session) {
       norm.data <- readRDS("BTACT_norms.rds")
       demog.dataA <- data.frame(bifactor.z = f.scores$Unadjusted, 
                                 B1PAGE_M2 = input$age)
+      demog.dataE <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                Edu = input$edu)
+      demog.dataG <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                B1PRSEX = input$gender)
+      demog.dataO <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                CurrentPastOcc = input$occ)
       demog.dataAE <- data.frame(bifactor.z = f.scores$Unadjusted, 
                                  B1PAGE_M2 = input$age, 
                                  Edu = input$edu)
@@ -109,6 +115,9 @@ shinyServer(function(input, output, session) {
       demog.dataAO <- data.frame(bifactor.z = f.scores$Unadjusted, 
                                  B1PAGE_M2 = input$age, 
                                  CurrentPastOcc = input$occ)
+      demog.dataEO <- data.frame(bifactor.z = f.scores$Unadjusted, 
+                                  Edu = input$edu,
+                                  CurrentPastOcc = input$occ)
       demog.dataAEG <- data.frame(bifactor.z = f.scores$Unadjusted, 
                                   B1PAGE_M2 = input$age, 
                                   Edu = input$edu, 
@@ -129,18 +138,26 @@ shinyServer(function(input, output, session) {
       f.scores$Normed <- NA_integer_
       normed.scores <- data.frame(none=NA_integer_)
       normed.scores$A <- (demog.dataA$bifactor.z - predict(norm.data$A, newdata = demog.dataA))/summary(norm.data$A)$sigma
+      normed.scores$E <- (demog.dataE$bifactor.z - predict(norm.data$E, newdata = demog.dataE))/summary(norm.data$E)$sigma
+      normed.scores$G <- (demog.dataG$bifactor.z - predict(norm.data$G, newdata = demog.dataG))/summary(norm.data$G)$sigma
+      normed.scores$O <- (demog.dataO$bifactor.z - predict(norm.data$O, newdata = demog.dataO))/summary(norm.data$O)$sigma
       normed.scores$AE <- (demog.dataAE$bifactor.z - predict(norm.data$AE, newdata = demog.dataAE))/summary(norm.data$AE)$sigma
       normed.scores$AG <- (demog.dataAG$bifactor.z - predict(norm.data$AG, newdata = demog.dataAG))/summary(norm.data$AG)$sigma
       normed.scores$AO <- (demog.dataAO$bifactor.z - predict(norm.data$AO, newdata = demog.dataAO))/summary(norm.data$AO)$sigma
+      normed.scores$EO <- (demog.dataEO$bifactor.z - predict(norm.data$EO, newdata = demog.dataEO))/summary(norm.data$EO)$sigma
       normed.scores$AEG <- (demog.dataAEG$bifactor.z - predict(norm.data$AEG, newdata = demog.dataAEG))/summary(norm.data$AEG)$sigma
       normed.scores$AEO <- (demog.dataAEO$bifactor.z - predict(norm.data$AEO, newdata = demog.dataAEO))/summary(norm.data$AEO)$sigma
       normed.scores$AGO <- (demog.dataAGO$bifactor.z - predict(norm.data$AGO, newdata = demog.dataAGO))/summary(norm.data$AGO)$sigma
       normed.scores$AEGO <- (demog.dataAEGO$bifactor.z - predict(norm.data$AEGO, newdata = demog.dataAEGO))/summary(norm.data$AEGO)$sigma
       f.scores$none <- demog.dataA$bifactor.z
       f.scores$A <- normed.scores$A
+      f.scores$E <- normed.scores$E
+      f.scores$G <- normed.scores$G
+      f.scores$O <- normed.scores$O
       f.scores$AE <- normed.scores$AE
       f.scores$AG <- normed.scores$AG
       f.scores$AO <- normed.scores$AO
+      f.scores$EO <- normed.scores$EO
       f.scores$AEG <- normed.scores$AEG
       f.scores$AEO <- normed.scores$AEO
       f.scores$AGO <- normed.scores$AGO
@@ -151,11 +168,15 @@ shinyServer(function(input, output, session) {
   })
   output$FScoresN <- renderTable({FScores()[1]})
   output$FScoresA <- renderTable({FScores()[4]})
-  output$FScoresAE <- renderTable({FScores()[5]})
-  output$FScoresAG <- renderTable({FScores()[6]})
-  output$FScoresAO <- renderTable({FScores()[7]})
-  output$FScoresAEG <- renderTable({FScores()[8]})
-  output$FScoresAEO <- renderTable({FScores()[9]})
-  output$FScoresAGO <- renderTable({FScores()[10]})
-  output$FScoresAEGO <- renderTable({FScores()[11]})
+  output$FScoresE <- renderTable({FScores()[5]})
+  output$FScoresG <- renderTable({FScores()[6]})
+  output$FScoresO <- renderTable({FScores()[7]})
+  output$FScoresAE <- renderTable({FScores()[8]})
+  output$FScoresAG <- renderTable({FScores()[9]})
+  output$FScoresAO <- renderTable({FScores()[10]})
+  output$FScoresEO <- renderTable({FScores()[11]})
+  output$FScoresAEG <- renderTable({FScores()[12]})
+  output$FScoresAEO <- renderTable({FScores()[13]})
+  output$FScoresAGO <- renderTable({FScores()[14]})
+  output$FScoresAEGO <- renderTable({FScores()[15]})
 })
