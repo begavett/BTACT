@@ -1,17 +1,17 @@
 # The MIT License (MIT)
-# 
-# Copyright (c) 2014 Brandon Gavett
-# 
+#
+# Copyright (c) 2014-2015 Brandon Gavett
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-#   
+#
 #   The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,28 +20,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-library(shiny)
-if("shinyIncubator" %in% rownames(installed.packages()) == FALSE) {install.packages("devtools"); library(devtools); devtools::install_github("shiny-incubator", "rstudio")}
-library(shinyIncubator)
-if("lavaan" %in% rownames(installed.packages()) == FALSE) {install.packages("lavaan")}
-library(lavaan)
-if("car" %in% rownames(installed.packages()) == FALSE) {install.packages("car")}
-library(car)
-
 shinyUI(fluidPage(
   title = "BTACT Global Factor Score and Norms Calculator",
   fluidRow(
     column(8,
-           h2("BTACT Global Factor Score and Norms Calculator")),
+           h2("BTACT Global Factor Score and Norms Calculator"),
+           HTML('If this app is valuable to you, please consider making a small donation to help support hosting fees.
+                <a href = "https://www.paypal.me/begavett/"><img src = "https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_74x21.png" /></a>')
+           ),
     column(4,
            img(src = "http://www.uccs.edu/Images/brand/uccs-logo.png", width=400, height=58))),
   fluidRow(HTML("Based on Gavett, B. E., Crane, P. K., & Dams-O'Connor, K. (2013). Bi-factor analyses of the Brief Test of Adult Cognition by Telephone. <i>NeuroRehabilitation</i>, <i>32</i>, 253-365. <a href = 'http://www.uccs.edu/Documents/bgavett/BTACT_2013.pdf'><img src = 'http://www.adobe.com/images/pdficon_small.png'></a>")),
+  fluidRow(HTML("and on Gurnani, A. S., John, S. E., & Gavett, B. E. (in press). Regression-based norms for a bi-factor model for scoring the Brief Test of Adult Cognition by Telephone (BTACT). <i>Archives of Clinical Neuropsychology</i>. <a href = 'http://doi.org/10.1093/arclin/acv005'><img src = 'http://www.adobe.com/images/pdficon_small.png'></a>")),
   fluidRow(HTML("Occupation coding based on the <a href = 'http://www.bls.gov/nls/quex/r1/y97r1cbka1.pdf'>1990 Census Industrial & Occupational Classification Codes</a>")),
   tags$hr(),
   fluidRow(
     column(3,
            h4("BTACT Raw Scores"),
-           numericInput("b_digit", "Backward Digit Span (0-7):",0,min=0,max=7),
+           numericInput("b_digit", "Backward Digit Span (0-8):",0,min=0,max=8),
            numericInput("ns_1", "Number Series Trial 1 (0-1):",0,min=0,max=1),
            numericInput("ns_2", "Number Series Trial 2 (0-1):",0,min=0,max=1),
            numericInput("ns_3", "Number Series Trial 3 (0-1):",0,min=0,max=1),
@@ -92,7 +88,6 @@ shinyUI(fluidPage(
     column(1,
            br(),br(),br(),br(),br(),br(),br(),actionButton("calc", "Calculate")),
     column(5,
-           progressInit(),
            tabsetPanel(
              tabPanel("Unadjusted",
                       h4("BTACT Global Factor z-score (M = 0, SD = 1)"),
